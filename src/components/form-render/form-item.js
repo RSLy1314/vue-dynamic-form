@@ -29,6 +29,7 @@ export default {
       let props = Object.assign({}, obj, { value })
       console.log(props,'props-');
       this.disabled && (props.disabled = this.disabled) // 全局禁用, false时不处理 TODO 单个禁用
+      // TODO 扩展，这里只是指定了elementUI的组件，如果是其他的呢，支持插槽或者render
         return h(`el-${type}`, {
           attrs: props, // 用于支持placeholder等原生属性(同时造成dom上挂载一些props)
           props,
