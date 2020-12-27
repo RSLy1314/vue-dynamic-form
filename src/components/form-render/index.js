@@ -77,11 +77,11 @@ export default {
     )
   },
   mounted() {
-    this.$nextTick(() => {
-      Object.keys(Form.methods).forEach((item) => { // 扩展继承Form的方法
-        this[item] = this.$refs.YForm[item]
-      })
-    })
+    // this.$nextTick(() => {
+    //   Object.keys(Form.methods).forEach((item) => { // 扩展继承Form的方法
+    //     this[item] = this.$refs.YForm[item]
+    //   })
+    // })
   },
   components: {
     formItem

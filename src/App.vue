@@ -64,7 +64,7 @@ export default {
       console.log(data);
     },
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].$refs.YForm.validate((valid) => {
         console.log(valid,'---valid');
         if (valid) {
           alert('submit!');
@@ -75,7 +75,7 @@ export default {
       });
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].$refs.YForm.resetFields();
     }
   },
   components: {
