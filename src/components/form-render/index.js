@@ -21,24 +21,11 @@ export default {
   methods: {
     /**
      * @description 初始化数据如果有默认值
-     * @future 后期可能扩展group的形式
      * @param {*} item 配置的项Obj
      */
     initData (item) {
       if (!item.key || this.value[item.key] !== undefined) return
       let defaultVal = item.$default
-      // let defaultVal
-      // if (item.$type === 'group') {
-      //   // group
-      //   defaultVal = item.$items.reduce((acc, cur) => {
-      //     cur.$default && cur.key && (acc[cur.key] = cur.$default)
-      //     return acc
-      //   }, {})
-      // } else if (item.$default !== undefined) {
-      //   // not group
-      //   defaultVal = item.$default
-      // }
-      // defaultVal !== undefined && this.updateValue({ id: item.key, value: defaultVal })
       defaultVal && this.updateValue({ id: item.key, value: defaultVal })
     },
     updateValue ({ id, value }) {

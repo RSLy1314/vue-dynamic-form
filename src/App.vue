@@ -22,31 +22,27 @@ export default {
         {
           key:'input1', // 对象的Key值，必须唯一
           type: 'input',
-          // $attrs: { 'data-name': 'form1' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
-          label: "输入框", // el-form-item上的属性
+          label: "输入框",
           $default: "这是默认值",
           $el: {
             placeholder: "请选择内容"
           },
-          rules: [{ required: true, message: '请输入活动名称1', trigger: 'blur' }] // el-form-item上的属性
+          rules: [{ required: true, message: '请输入活动名称1', trigger: 'blur' }]
         },
         {
           key:'input2', // 对象的Key值，必须唯一
           type: 'input',
-          // $attrs: { 'data-name': 'form1' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
-          label: "输入框", // el-form-item上的属性
+          label: "输入框",
           $default: "这是默认值2",
-          $attrs: { 'data-name': 'btn' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
           $el: {
             placeholder: "请选择内容2"
           },
-          rules: [{ required: true, message: '请输入活动名称2', trigger: 'blur' }] // el-form-item上的属性
+          rules: [{ required: true, message: '请输入活动名称2', trigger: 'blur' }]
         },
 //         {
 //           key:'btn', // 对象的Key值，必须唯一
 //           type: 'button',
-//           $attrs: { 'data-name': 'btn' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
-//           label: "", // el-form-item上的属性
+//           label: "",
 //           $default: "",
 //           $el: {
 //             type: "primary",
