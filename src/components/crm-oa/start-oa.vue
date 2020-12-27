@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <FormRender
+  <div class="crm-start-oa">
+    <FromRender
       inline
       :query-config='queryConfig'
       @getData='getData'
@@ -8,16 +8,44 @@
     >
       <el-button type="primary" @click="submitForm('fromRender')">查询</el-button>
       <el-button type="primary" @click="resetForm('fromRender')">重置</el-button>
-    </FormRender>
+    </FromRender>
   </div>
 </template>
 
 <script>
-import FormRender from './components/form-render/index.js'
+/*
+  组件提供增删改查的功能，
+    1.查询时，查询条件可以提供插槽，然后选择条件后提供给查询的条件
+    2.数据返回时拿到提供的配置项去做展示，
+    3.table支持增删改
+*/
+import FromRender from '../from-render/index.js'
 export default {
-  name: 'App',
+  name: 'startOa',
+  components: {
+    FromRender
+  },
   data() {
     return {
+      queryConf: [
+        {
+          label: '输入框',
+          value: '',
+          type: 'input',
+          props: {
+            width: 150,
+            placeholder: '请输入'
+          }
+        },
+        {
+          label: '按钮',
+          value: '查询（F）',
+          type: 'button',
+          props: {
+            width: 80,
+          }
+        },
+      ],
       queryConfig: [
         {
           key:'input1', // 对象的Key值，必须唯一
@@ -42,20 +70,20 @@ export default {
           },
           rules: [{ required: true, message: '请输入活动名称2', trigger: 'blur' }] // el-form-item上的属性
         },
-//         {
-//           key:'btn', // 对象的Key值，必须唯一
-//           type: 'button',
-//           $attrs: { 'data-name': 'btn' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
-//           label: "", // el-form-item上的属性
-//           $default: "",
-//           $el: {
-//             type: "primary",
-//             size: 'medium',
-//           },
-//           $solt: () => {
-//             return (<div>查询（F）</div>)
-//           }
-//         },
+        {
+          key:'btn', // 对象的Key值，必须唯一
+          type: 'button',
+          $attrs: { 'data-name': 'btn' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
+          label: "", // el-form-item上的属性
+          $default: "",
+          $el: {
+            type: "primary",
+            size: 'medium',
+          },
+          $solt: () => {
+            return (<div>查询（F）</div>)
+          }
+        },
       ]
     }
   },
@@ -78,11 +106,12 @@ export default {
       this.$refs[formName].resetFields();
     }
   },
-  components: {
-    FormRender
-  }
+  mounted() {
+  },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .crm-start-oa {
+  }
 </style>
