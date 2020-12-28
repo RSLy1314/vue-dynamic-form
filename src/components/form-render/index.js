@@ -32,14 +32,21 @@ export default {
       this.value = Object.assign({}, this.value, {
         [id]: value
       })
-      this.$emit('getData', this.value)
+      // this.$emit('getData', this.value) // 是否发散出去？可以通过ref拿值
     },
+    async validate() {
+      let valid = await this.$refs.YForm.validate()
+      return valid
+    },
+    async resetFields() {
+      await this.$refs.YForm.resetFields()
+    }
   },
   render(h) {
     this.queryConfig.forEach(this.initData)
     return h(
       'el-form', {
-        props: Object.assign({}, this._props,{ // this._props是from组件的props,做合并
+        props: Object.assign({}, this._props, { // this._props是from组件的props,做合并
           model: this.value
         }),
         ref: 'YForm'
@@ -52,20 +59,21 @@ export default {
             value: this.value,
             itemValue: this.value[item.key],
             disabled: this.disabled,
-            rules: item.rules
+            rules: item.rules,
+            $option: item.$option
           },
           on: {
             updateValue: this.updateValue
           }
         }
-        return h('form-item',data)
+        return h('form-item', data)
       })
       .concat(this.$slots.default)
     )
   },
   mounted() {
     // this.$nextTick(() => {
-    //   Object.keys(Form.methods).forEach((item) => { // 扩展继承Form的方法
+    //   Object.keys(Form.methods).forEach((item) => { // 扩展继承Form的方法 放弃直接使用refs
     //     this[item] = this.$refs.YForm[item]
     //   })
     // })

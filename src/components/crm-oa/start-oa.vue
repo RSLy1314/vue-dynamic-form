@@ -1,6 +1,6 @@
 <template>
   <div class="crm-start-oa">
-    <FromRender
+    <FormRender
       inline
       :query-config='queryConfig'
       @getData='getData'
@@ -8,7 +8,7 @@
     >
       <el-button type="primary" @click="submitForm('fromRender')">查询</el-button>
       <el-button type="primary" @click="resetForm('fromRender')">重置</el-button>
-    </FromRender>
+    </FormRender>
   </div>
 </template>
 
@@ -19,94 +19,149 @@
     2.数据返回时拿到提供的配置项去做展示，
     3.table支持增删改
 */
-import FromRender from '../from-render/index.js'
+import FormRender from '../form-render/index.js'
 export default {
   name: 'startOa',
   components: {
-    FromRender
+    FormRender
   },
   data() {
     return {
-      queryConf: [
-        {
-          label: '输入框',
-          value: '',
-          type: 'input',
-          props: {
-            width: 150,
-            placeholder: '请输入'
-          }
-        },
-        {
-          label: '按钮',
-          value: '查询（F）',
-          type: 'button',
-          props: {
-            width: 80,
-          }
-        },
-      ],
       queryConfig: [
         {
-          key:'input1', // 对象的Key值，必须唯一
-          type: 'input',
-          // $attrs: { 'data-name': 'form1' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
-          label: "输入框", // el-form-item上的属性
-          $default: "这是默认值",
+          key: 'select', // 对象的Key值，必须唯一
+          type: 'select',
+          label: '下拉框',
+          $default: 'cq',
           $el: {
-            placeholder: "请选择内容"
+            placeholder: '请选择内容'
           },
-          rules: [{ required: true, message: '请输入活动名称1', trigger: 'blur' }] // el-form-item上的属性
+          $option: {
+            options: [
+              {
+                label: '广东',
+                value: 'gd'
+              },
+              {
+                label: '江苏',
+                value: 'js'
+              },
+              {
+                label: '重庆',
+                value: 'cq'
+              },
+            ],
+            type: 'option'
+          },
+          rules: [{ required: true, message: '请输入活动名称1', trigger: 'blur' }]
         },
         {
-          key:'input2', // 对象的Key值，必须唯一
+          key: 'input2', // 对象的Key值，必须唯一
           type: 'input',
-          // $attrs: { 'data-name': 'form1' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
-          label: "输入框", // el-form-item上的属性
-          $default: "这是默认值2",
-          $attrs: { 'data-name': 'btn' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
+          label: '输入框',
+          $default: '这是默认值2',
           $el: {
-            placeholder: "请选择内容2"
+            placeholder: '请选择内容2'
           },
-          rules: [{ required: true, message: '请输入活动名称2', trigger: 'blur' }] // el-form-item上的属性
+          rules: [{ required: true, message: '请输入活动名称2', trigger: 'blur' }]
         },
         {
-          key:'btn', // 对象的Key值，必须唯一
-          type: 'button',
-          $attrs: { 'data-name': 'btn' }, // 可选, 写法与 Vue 的 Render 函数规范保持一致
-          label: "", // el-form-item上的属性
-          $default: "",
+          key: 'radio', // 对象的Key值，必须唯一
+          type: 'radio',
+          label: '单选框',
+          $default: false,
           $el: {
-            type: "primary",
-            size: 'medium',
+            label: 'Radio'
           },
-          $solt: () => {
-            return (<div>查询（F）</div>)
-          }
         },
-      ]
+        {
+          key: 'checkbox1', // 对象的Key值，必须唯一
+          type: 'checkbox',
+          label: '单选框',
+          $default: true,
+          $el: {
+            label: 'QQ'
+          },
+        },
+        {
+          key: 'checkbox2', // 对象的Key值，必须唯一
+          type: 'group',
+          label: '多选框',
+          $default: ['gd'],
+          $option: {
+            options: [
+              {
+                label: '广东',
+                value: 'gd'
+              },
+              {
+                label: '江苏',
+                value: 'js'
+              },
+              {
+                label: '重庆',
+                value: 'cq'
+              },
+            ],
+            type: 'checkbox'
+          },
+        },
+        {
+          key: 'radio2', // 对象的Key值，必须唯一
+          type: 'group',
+          label: '多选框',
+          $default: 'gd',
+          $option: {
+            options: [
+              {
+                label: '广东',
+                value: 'gd'
+              },
+              {
+                label: '江苏',
+                value: 'js'
+              },
+              {
+                label: '重庆',
+                value: 'cq'
+              },
+            ],
+            type: 'radio'
+          },
+        },
+        {
+          key: 'render', // 对象的Key值，必须唯一
+          label: 'RENDER',
+          formatter: () => (
+            <div>1111</div>
+          ),
+        },
+      ],
+      input3: 222
     }
   },
   methods: {
-    getData(data) {
-      console.log(data);
+    getData(v) {
+    },
+    changeNum(e) {
+      console.log(e, '----e')
+      this.input3 = e
     },
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        console.log(valid,'---valid');
+      this.$refs[formName].$refs.YForm.validate((valid) => {
+        console.log(valid, '---valid')
         if (valid) {
-          alert('submit!');
+          console.log(this.$refs[formName].value)
+          alert('submit!')
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].$refs.YForm.resetFields()
     }
-  },
-  mounted() {
   },
 }
 </script>
